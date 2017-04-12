@@ -1,5 +1,7 @@
 sudo: required
 
+language: cpp
+
 services:
   - docker
 
@@ -7,6 +9,10 @@ install:
   - docker pull rkalkani/docker-nacl-webports
 
 script:
-  - docker run -d -v `pwd`:/home/project --name nacl rkalkani/docker-nacl-webports
+  - docker run -td -v `pwd`:/home/project --name nacl rkalkani/docker-nacl-webports
+  - docker exec nacl /bin/bash -c "cd /home/project/Counter; make"
+  - docker exec nacl /bin/bash -c "cd /home/project/GettingStarted; make"
+  - docker exec nacl /bin/bash -c "cd /home/project/Simple; make"
+  - docker exec nacl /bin/bash -c "cd /home/project/MonteCarlo; make"
   - docker exec nacl /bin/bash -c "cd /home/project/ImageProc; make"
 
