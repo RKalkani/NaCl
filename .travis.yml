@@ -1,0 +1,12 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker pull rkalkani/docker-nacl-webports
+
+script:
+  - docker run -d -v `pwd`:/home/project --name nacl rkalkani/docker-nacl-webports
+  - docker exec nacl /bin/bash -c "cd /home/project/ImageProc; make"
+
